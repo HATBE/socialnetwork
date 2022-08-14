@@ -1,0 +1,26 @@
+# Error docs
+ErrorDocument 400 /_error.php?n=400
+ErrorDocument 401 /_error.php?n=401
+ErrorDocument 403 /_error.php?n=403
+ErrorDocument 404 /_error.php?n=404
+ErrorDocument 500 /_error.php?n=500
+
+# Disallow Indexing
+Options -Indexes
+IndexIgnore *
+
+# Disallow accessing .htaccess / server-status
+<FilesMatch "^(\.htaccess|server-status)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # rewrite .php and "/" to param
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*) %{REQUEST_FILENAME}.php/$1 [QSA,L]
+</IfModule>
