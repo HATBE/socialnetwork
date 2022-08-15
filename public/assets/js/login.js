@@ -38,6 +38,5 @@ function login(username, password) {
 
 btnLoginEl.addEventListener('click', (e) => {
     e.preventDefault();
-
-   login(inputUsernameEl.value, inputPasswordEl.value);
+    login(inputUsernameEl.value, inputPasswordEl.value);
 });

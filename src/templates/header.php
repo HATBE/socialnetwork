@@ -35,9 +35,22 @@
         <link rel="icon" href="/assets/img/favicon.png" type="image/x-icon">
         <link rel="apple-touch-icon" href="/assets/img/favicon.png">
     </head>
-    <body>
+    <body class="text-white" style="overflow-x: hidden;">
         <?php if(!isset($noparts)):?>
-        <header>
-            header
+        <header class="bg-dark">
+            <div class="container d-flex justify-content-between align-items-center p-2">
+                <div>
+                    <h1 class="h3 p-0 m-0">
+                        <a draggable="false" href="/" class="link-light text-decoration-none user-select-none">
+                            <?= META_PAGE_TITLE?>
+                        </a>
+                    </h1>
+                </div>
+                <div>
+                    <nav role="main-nav" class="d-flex align-items-center">
+                        d
+                    </nav>
+                </div>
+            </div>
         </header>
         <?php endif;?>

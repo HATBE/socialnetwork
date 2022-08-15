@@ -2,12 +2,51 @@
 /*
     Agrs:
     - noparts // if the footer is not used
-    - scripts // scripts that will be loaded under main.js
+    - scripts // scripts that will be loaded under main.js and ajax
 */
 ?>
     <?php if(!isset($noparts)):?>
-    <footer>
-        footer
+    <footer class="bg-dark">
+        <div class="container p-4">
+            <!--Grid row-->
+            <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5><?= META_PAGE_TITLE;?></h5>
+                <p>
+                    <!-- Nothing -->
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5>XXX</h5>
+                <ul class="list-unstyled mb-0">
+                <li>
+                    <a href="/xx" class="underline text-white">xx</a>
+                </li>
+                <li>
+                    <a href="/xx" class="underline text-white">xx</a>
+                </li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5 class="mb-0">Links</h5>
+                <ul class="list-unstyled">
+                <li>
+                    <a href="/imprint" class="underline text-white">Impressum</a>
+                </li>
+                <li>
+                    <a href="/imprint" class="underline text-white">Datenschutz</a>
+                </li>
+                <li>
+                    <a href="/copyright" class="underline text-white">Copyright</a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        <div class="text-center b-dark p-3">
+            &copy; <?= '2022 - ' . date('Y');?> Copyright:
+            <a class="text-white" href="https://hatbe.ch/">HATBE</a>
+        </div>
     </footer>
     <?php endif;?>
 

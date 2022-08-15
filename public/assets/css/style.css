@@ -1,9 +1,9 @@
 :root {
-    --bs-dark: #0b0e13;
+    --bs-dark: #10171D;
     --bs-dark-rgb: 16, 23, 29; 
 }
 body {
-    background-color: #10171d !important;
+    background-color: var(--bs-dark) !important;
     font-family: 'Lato', sans-serif !important;
 }
 a {

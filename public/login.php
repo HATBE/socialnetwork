@@ -6,7 +6,7 @@
 
 <?= Template::load('header', ['title' => 'Login', 'noparts' => true]);?>
 
-<main style="height: 100vh;" class="d-flex justify-content-center align-items-center">
+<main style="height: 100vh;" class="text-white d-flex justify-content-center align-items-center">
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-xl-10">
@@ -40,7 +40,7 @@
                                     <a class="small text-muted" href="/resetpw">Forgot password?</a>
                                     <p>Don't have an account? <a class="text-muted" href="/register">Register here</a></p>
                                 </form>
-                            </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
