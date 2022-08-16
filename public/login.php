@@ -2,6 +2,12 @@
     require_once(__DIR__ . '/../src/init.php');
 
     use app\Template;
+    use app\user\User;
+
+    if(User::isLoggedIn()) {
+        header('Location: /');
+        exit();
+    }
 ?>
 
 <?= Template::load('header', ['title' => 'Login', 'noparts' => true]);?>

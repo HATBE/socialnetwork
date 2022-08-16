@@ -7,6 +7,10 @@
     use app\Random;
 
     class User extends Model {
+        public static function isLoggedIn() {
+            return isset($_SESSION['loggedIn']);
+        }
+
         public static function getFromUid(Database $db, string $uid) {
             $db->query('SELECT * FROM users WHERE uid LIKE :uid;');
             $db->bind('uid', $uid);

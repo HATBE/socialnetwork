@@ -9,7 +9,6 @@
     use app\Sanitize;
 
     if(DEVMODE) {
-        echo '<!-- I am running in devmode! -->';
         // \/ Display all PHP errors \/
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);

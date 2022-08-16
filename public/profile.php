@@ -10,23 +10,42 @@
         $profileId = null;
     }
 
-    $user = User::getFromUid($_db, $profileId);
+    $user = null;
+    if($profileId !== null) {
+        $user = User::getFromUid($_db, $profileId);
+    }    
 ?>
 
-<?= Template::load('header', ['title' => 'Profile']);?>
+<?= Template::load('header', ['title' => ($user === null ? 'User not found' : $user->getUsername())]);?>
 
 <main>
     <div class="container">
-    <?php if($user !== null): ?>
-        <div class="row">
+        <div class="card bg-dark mb-3">
+            <div class="card-body">
+                <nav aria-label="breadcrumb">
+                    <ol class="m-0 breadcrumb text-light">
+                        <li class="breadcrumb-item"><a class="link-light" href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a class="link-light" href="/profile">Profile</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?= $user === null ? 'User not found' : $user->getUsername();?></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>  
+        <?php if($user !== null): ?>
+        <div class="row g-3">
             <div class="col-xl-4 col-12">
                 <div class="card bg-dark">
                     <div class="card-body">
-                        <?= $user->getUsername();?>
+                        <div>
+                            <?= $user->getUsername();?>
+                        </div>
+                        <button id="follow-user-btn" data-uid="<?= $user->getUid();?>" class="btn btn-primary">
+                            Follow
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-8 col-12 pt-xl-0 pt-3">
+            <div class="col-xl-8 col-12">
                 <div class="card bg-dark">
                     <div class="card-body">
                         content
@@ -34,13 +53,13 @@
                 </div>
             </div>
         </div>
-    <?php else:?>
+        <?php else:?>
         <div class="card bg-dark">
             <div class="card-body">
                 Please enter a valid profile id.
             </div>
         </div>
-    <?php endif;?>
+        <?php endif;?>
     </div>
 </main>
 

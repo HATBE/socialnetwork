@@ -10,6 +10,7 @@ function changeMsg(text, color) {
 }
 
 function login(username, password) {
+    changeMsg('', 'text-success');
     if(username == '') {
         changeMsg('Field Username is empty!', 'text-danger');
         return;
@@ -18,6 +19,9 @@ function login(username, password) {
         changeMsg('Field Password is empty!', 'text-danger');
         return;
     }
+    inputPasswordEl.value = '';
+    inputUsernameEl.disabled = true;
+    inputPasswordEl.disabled = true;
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
@@ -25,14 +29,13 @@ function login(username, password) {
         data: JSON.stringify({username: username, password: password})
     })
     .done(data => {
-        inputPasswordEl.value = '';
-        inputUsernameEl.value = '';
-        changeMsg(data.text, 'text-success');
-        setTimeout(() => {window.location.href = "/index"}, 750);
+        changeMsg(data.responseText, 'text-success');
+        setTimeout(() => {window.location.href = "/index"}, 200);
     })
     .fail(data => {
-        inputPasswordEl.value = '';
-        changeMsg(data.text, 'text-danger');
+        inputUsernameEl.disabled = false;
+        inputPasswordEl.disabled = false
+        changeMsg(data.responseText, 'text-danger');
     });
 }
 

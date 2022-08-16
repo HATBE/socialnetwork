@@ -26,3 +26,30 @@ main {
 .text-shadow {
     text-shadow: 2px 2px 10px #000;
 }
+.hover-light:hover {
+    background-color: #dbdbdb;
+    transition-duration: .2s;
+}
+.hover-dark:hover {
+    background-color: #0b0e13 !important;
+    transition-duration: .2s;
+}
+.hover-text-light:hover {
+    color: red;
+    transition-duration: .2s; 
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.cursor-default {
+    cursor: default;
+}
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+.cursor-none {
+    cursor: none;
+}
+.cursor-text {
+    cursor: text;
+}
