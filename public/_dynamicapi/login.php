@@ -26,7 +26,7 @@
     }
     if(!isset($jsonData->username) || !isset($jsonData->password)) {
         http_response_code(400);
-        die('Please send a username and a password');
+        die('Please provide a username and a password');
     }
     if(!Sanitize::checkStringBetween($jsonData->username, 1, 255) || !Sanitize::checkStringBetween($jsonData->password, 1, 255)) {
         http_response_code(400);

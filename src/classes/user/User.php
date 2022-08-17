@@ -5,6 +5,7 @@
     use app\Model;
     use app\Sanitize;
     use app\Random;
+    use app\user\Follow;
 
     class User extends Model {
         public static function isLoggedIn() {
@@ -83,5 +84,9 @@
 
         public function verifyPassword($pw) {
             return password_verify($pw, $this->getData('password'));
+        }
+
+        public function isFollowing($targetId) {
+            return Follow::isFollowing($this->_db, $this->getId(), $targetId);
         }
     }

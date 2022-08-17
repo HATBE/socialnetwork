@@ -7,7 +7,6 @@
         header('Location: /login');
         exit();
     } else {
-        $uid = $_SESSION['loggedIn']['uid'] ?? 'none';
-        header("Location: /profile/${uid}");
+        header("Location: /dashboard");
         exit();
     }

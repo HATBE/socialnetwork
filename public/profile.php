@@ -13,7 +13,12 @@
     $user = null;
     if($profileId !== null) {
         $user = User::getFromUid($_db, $profileId);
-    }    
+    }
+
+    if(User::isLoggedIn() && $user === null) {
+        header("Location: /profile/" . $_SESSION['loggedIn']['uid']);
+        exit();
+    }
 ?>
 
 <?= Template::load('header', ['title' => ($user === null ? 'User not found' : $user->getUsername())]);?>
@@ -39,9 +44,7 @@
                         <div>
                             <?= $user->getUsername();?>
                         </div>
-                        <button id="follow-user-btn" data-uid="<?= $user->getUid();?>" class="btn btn-primary">
-                            Follow
-                        </button>
+                        <?= Template::load('followBtn', ['uid' => $user->getUid(), 'db' => $_db]);?>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <meta name="description" content="<?= $description ?? '' ?>">
-        <meta name="keywords" content="<?= META_DEFAULT_KEYWORDS?>, <?= $keywords ?? ''?>">
+        <meta name="keywords" content="<?= META_DEFAULT_KEYWORDS;?>, <?= $keywords ?? '';?>">
         <meta name="author" content="HATBE | Aaron Gensetter">
 
         <meta property="og:locale" content="<?= META_LOCAL;?>">
@@ -62,14 +62,25 @@
                                     <li><a draggable="false" class="rounded hover-dark link-light user-select-none dropdown-item" href="/create-image"><span style="display: inline-block;width: 23px;"><i class="fas fa-image"></i></span> Upload Image</a></li>
                                 </ul>
                             </span>
+                            <a draggable="false" title="Chat" class="mx-2 link-light hover-text-light" href="/chat"><i class="fas fa-comment"></i></a>
+                            <span draggable="false" class="mx-2 dropdown">
+                                <div draggable="false" title="Account" class="cursor-pointer link-light" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></div>
+                                <ul class="p-0 bg-dark dropdown-menu">
+                                    <li class="user-select-none text-white text-center pt-2"><?= $_SESSION['loggedIn']['username']?></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a draggable="false" class="rounded hover-dark link-light user-select-none dropdown-item" href="/dashboard"><span style="display: inline-block;width: 23px;"><i class="fas fa-tachometer-alt"></i></span> Dashboard</a></li>
+                                    <li><a draggable="false" class="rounded hover-dark link-light user-select-none dropdown-item" href="/settings"><span style="display: inline-block;width: 23px;"><i class="fas fa-cog"></i></span> Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a draggable="false" class="text-danger rounded hover-dark link-light user-select-none dropdown-item" href="/logout"><span style="display: inline-block;width: 23px;"><i class="fas fa-sign-out-alt"></i></span> Logout</a></li>
+                                </ul>
+                            </span>
                             <span class="mx-2 dropdown">
-                                <small style="z-index: 9999; font-size: 10px; top:0px; right: -5px; width: 15px; height: 15px;" data-bs-toggle="dropdown" class="user-select-none position-absolute bg-danger rounded-circle d-flex justify-content-center align-items-center">9+</small>
-                                <div title="Notifications" class="position-relative cursor-pointer link-light hover-text-light" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i></div>
+                                <small style="z-index: 9999; font-size: 10px; top:0px; right: -5px; width: 15px; height: 15px;" data-bs-toggle="dropdown" class="user-select-none position-absolute bg-danger rounded-circle d-flex justify-content-center align-items-center">?</small>
+                                <div draggable="false" title="Notifications" class="position-relative cursor-pointer link-light hover-text-light" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i></div>
                                 <ul class="text-white bg-dark p-3 user-select-none dropdown-menu">
                                     Notifications
                                 </ul>
                             </span>
-                            <a draggable="false" title="Logout" class="mx-2 link-light" href="/logout"><i class="fas fa-sign-out-alt"></i></a>
                         <?php else:?>
                             <a draggable="false" title="Login" class="mx-2 link-light" href="/login"><i class="fas fa-sign-in-alt"></i></a>
                         <?php endif;?>
