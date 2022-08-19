@@ -10,7 +10,7 @@
         exit();
     }
 
-    $uid = $_SESSION['loggedIn']['uid'];
+    $id = $_SESSION['loggedIn']['id'];
 ?>
 
 <?= Template::load('header', ['title' => 'Settings']);?>
@@ -22,7 +22,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="m-0 breadcrumb text-light">
                         <li class="breadcrumb-item"><a class="link-light" href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a class="link-light" href="/profile/<?= $uid;?>">Profile</a></li>
+                        <li class="breadcrumb-item"><a class="link-light" href="/profile/<?= $id;?>">Profile</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                     </ol>
                 </nav>

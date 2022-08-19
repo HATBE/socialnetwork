@@ -19,9 +19,11 @@ function login(username, password) {
         changeMsg('Field Password is empty!', 'text-danger');
         return;
     }
+    
     inputPasswordEl.value = '';
     inputUsernameEl.disabled = true;
     inputPasswordEl.disabled = true;
+
     $.ajax({
         type: 'POST',
         contentType: 'application/json',

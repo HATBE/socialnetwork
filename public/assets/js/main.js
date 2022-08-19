@@ -3,22 +3,22 @@ const followUserBtnEls = document.querySelectorAll('#follow-user-btn');
 
 followUserBtnEls.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-        const uid = e.target.dataset.uid;
+        const id = e.target.dataset.id;
         
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
             url: '/_dynamicapi/follow',
-            data: JSON.stringify({uid: uid})
+            data: JSON.stringify({id: id})
         })
         .done(data => {
-            // TODO:
+            console.log(data);
         })
         .fail(data => {
-            // TODO:
+            console.log(data);
         });
 
-        alert(`clicked ${uid}`);
+        alert(`clicked ${id}`);
     });
 });
 // /\ Follow Btn /\

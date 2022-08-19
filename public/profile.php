@@ -12,11 +12,11 @@
 
     $user = null;
     if($profileId !== null) {
-        $user = User::getFromUid($_db, $profileId);
+        $user = new User($_db, $profileId);
     }
 
     if(User::isLoggedIn() && $user === null) {
-        header("Location: /profile/" . $_SESSION['loggedIn']['uid']);
+        header("Location: /profile/" . $_SESSION['loggedIn']['id']);
         exit();
     }
 ?>
@@ -44,7 +44,7 @@
                         <div>
                             <?= $user->getUsername();?>
                         </div>
-                        <?= Template::load('followBtn', ['uid' => $user->getUid(), 'db' => $_db]);?>
+                        <?= Template::load('followBtn', ['id' => $user->getId(), 'db' => $_db]);?>
                     </div>
                 </div>
             </div>

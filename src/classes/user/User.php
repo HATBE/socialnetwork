@@ -12,14 +12,6 @@
             return isset($_SESSION['loggedIn']);
         }
 
-        public static function getFromUid(Database $db, string $uid) {
-            $db->query('SELECT * FROM users WHERE uid LIKE :uid;');
-            $db->bind('uid', $uid);
-            $res = $db->single();
-
-            return $db->rowCount() >= 1 ? new User($db, $res) : null;
-        }
-
         public static function getFromUsername(Database $db, string $username) {
             $db->query('SELECT * FROM users WHERE username LIKE :username;');
             $db->bind('username', $username);
@@ -28,26 +20,26 @@
             return $db->rowCount() >= 1 ? new User($db, $res) : null;
         }
 
-        public static function uidExists(Database $db, string $uid) {
-            $db->query('SELECT COUNT(id) as c FROM users WHERE uid LIKE :uid;');
-            $db->bind('uid', $uid);
+        public static function idExists(Database $db, string $id) {
+            $db->query('SELECT COUNT(id) as c FROM users WHERE id LIKE :id;');
+            $db->bind('id', $id);
 
             return $db->single()->c >= 1 ? true : false;
         }
 
         public static function usernameExists(Database $db, string $username) {
-            $db->query('SELECT COUNT(id) as c from users WHERE username LIKE :uname;');
-            $db->bind('uname', $username);
+            $db->query('SELECT COUNT(id) as c from users WHERE username LIKE :username;');
+            $db->bind('username', $username);
             
             return $db->single()->c >= 1 ? true : false;
         }
 
-        public static function generateUid(Database $_db) {
-            $uid;
+        public static function generateId(Database $_db) {
+            $id;
             do {
-                $uid = Random::generateUid('u');
-            } while(User::uidExists($_db, $uid));
-            return $uid;
+                $id = Random::generateId('u');
+            } while(User::idExists($_db, $id));
+            return $id;
         }
 
         public function __construct(Database $db, $input) {
@@ -57,7 +49,7 @@
                 $this->_data = $input;
                 $this->_exists = true;
             } else {
-                $id = Sanitize::int($input);
+                $id = Sanitize::string($input);
 
                 $this->_db->query('SELECT * FROM users WHERE id LIKE :id;');
                 $this->_db->bind('id', $id);
@@ -72,10 +64,6 @@
 
         public function getId() {
             return $this->getData('id');
-        }
-
-        public function getUid() {
-            return $this->getData('uid');
         }
 
         public function getUsername() {

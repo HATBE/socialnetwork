@@ -3,6 +3,8 @@
 
     use app\user\User;
     use app\Sanitize;
+    use app\user\Login;
+    use app\io\Database;
 
     if(User::isLoggedIn()) {
         http_response_code(400);
@@ -36,20 +38,12 @@
     $username = Sanitize::string($jsonData->username);
     $password = $jsonData->password;
 
-    $user = User::getFromUsername($_db, $username);
+    $login = new Login($_db, $username, $password);
 
-    if($user === null || !$user->exists()) {
+    if($login->success) {
+        http_response_code(200);
+        die('Login successfull');
+    } else {
         http_response_code(401);
         die('Username or Password wrong');
     }
-    if(!$user->verifyPassword($password)) {
-        http_response_code(401);
-        die('Username or Password wrong');
-    }
-
-    $_SESSION['loggedIn'] = [
-        'id' => $user->getId(),
-        'uid' => $user->getUid(),
-        'username' => $user->getUsername(),
-    ];
-    die('Login successfull');
