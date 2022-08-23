@@ -77,4 +77,8 @@
         public function isFollowing($targetId) {
             return Follow::isFollowing($this->_db, $this->getId(), $targetId);
         }
+
+        public function getLoginLog() {
+            
+        }
     }

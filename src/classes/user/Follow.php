@@ -6,7 +6,6 @@
     class Follow {
         public static function isFollowing(Database $db, string $userId, string $targetId) {
             // check if user followes target
-
             $db->query('SELECT COUNT(id) as c FROM following WHERE sender_user_id LIKE :sender AND target_user_id LIKE :target;');
             $db->bind('sender', $userId);
             $db->bind('target', $targetId);

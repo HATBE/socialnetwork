@@ -1,0 +1,13 @@
+User-agent: *
+
+Sitemap: /sitemap.xml
+
+Disallow: /_dynamicapi/
+Disallow: /imprint*
+Disallow: /assets/
+Disallow: /_error*
+Disallow: /dashboard*
+Disallow: /login*
+Disallow: /logout*
+Disallow: /resetpw*
+Disallow: /register*

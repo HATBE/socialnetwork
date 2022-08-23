@@ -3,6 +3,7 @@
 
     use app\io\Database;
     use app\user\User;
+    use app\user\LoginLog;
 
     class Login {
         public $success = false;
@@ -32,7 +33,7 @@
             }
 
             if(!$user->verifyPassword($this->_password)) {
-                $this->log(false, $user->getId());
+                LoginLog::log($this->_db, false, $user->getId());
                 return false;
             }
 
@@ -43,21 +44,9 @@
                 'username' => $user->getUsername(),
             ];
             
-            $this->log(true, $user->getId());
+            LoginLog::log($this->_db, true, $user->getId());
+
             return true;
-        }
-
-        private function log(bool $success, string $userId) {
-            // Log login activity
-            $date = time();
-            $ip = LOGIN_LOG_IP_ADDRESSES ? $_SERVER['REMOTE_ADDR'] : 'disabled';
-
-            $this->_db->query('INSERT INTO logins (user_id, success, date, ipaddress) VALUES (:userid, :success, :date, :ipaddress);');
-            $this->_db->bind('userid', $userId);
-            $this->_db->bind('success', $success);
-            $this->_db->bind('date', $date);
-            $this->_db->bind('ipaddress', $ip);
-            $this->_db->execute();
         }
 
         private function allowLogin(string $userId) {
@@ -73,6 +62,7 @@
             if($count > LOGIN_MAX_FAILED_ATTEMPTS) {
                 return false;
             }
+
             return true;
         }
     }

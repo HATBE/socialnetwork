@@ -13,7 +13,7 @@
     $id = $_SESSION['loggedIn']['id'];
 ?>
 
-<?= Template::load('header', ['title' => 'Settings']);?>
+<?= Template::load('header', ['title' => 'Dashboard']);?>
 
 <main>
     <div class="container">
@@ -28,7 +28,7 @@
                 </nav>
             </div>
         </div>
-        <div class="card bg-dark mb-3">
+        <div class="card bg-dark">
             <div class="card-body">
                 Dashboard
             </div>
