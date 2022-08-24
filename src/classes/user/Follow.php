@@ -22,7 +22,7 @@
                 // follow
                 $date = time();
 
-                $db->query('INSERT INTO following (date, sender_user_id, target_user_id) VALUES (:date, :sender, :target)');
+                $db->query('INSERT INTO following (date, sender_user_id, target_user_id) VALUES (:date, :sender, :target);');
                 $db->bind('sender', $senderId);
                 $db->bind('target', $targetId);
                 $db->bind('date', $date);
@@ -32,13 +32,17 @@
             }
         }
 
-        public static function unfollow(Database $db, $senderUid, $targetUid) {
-            if(!Follow::isFollowing($db, $senderUid, $targetUid) || $senderUid === $targetUid) {
+        public static function unfollow(Database $db, $senderId, $targetId) {
+            if(!Follow::isFollowing($db, $senderId, $targetId) || $senderId === $targetId) {
                 // sender does not follow target or is himself
                 return false;
             } else {
                 // unfollow
-                //TODO:
+                $db->query('DELETE FROM following WHERE sender_user_id LIKE :sender AND target_user_id LIKE :target;');
+                $db->bind('sender', $senderId);
+                $db->bind('target', $targetId);
+                $db->execute();
+
                 return true;
             }
         }

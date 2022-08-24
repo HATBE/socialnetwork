@@ -3,11 +3,14 @@
 
     use app\user\User;
     use app\Sanitize;
+    use app\user\Follow;
 
     if(!User::isLoggedIn()) {
         http_response_code(400);
         die('You are not logedin');
     }
+
+    $user = new User($_db, $_SESSION['loggedIn']['id']);
 
     if($_SERVER['REQUEST_METHOD'] != 'POST') {
         http_response_code(400);
@@ -22,17 +25,27 @@
         http_response_code(400);
         die('The content type is not valid json');
     }
-    if(!isset($jsonData->uid)) {
+    if(!isset($jsonData->id)) {
         http_response_code(400);
-        die('Please provide a uid');
+        die('Please provide a id');
     }
-    $uid = Sanitize::string($jsonData->uid);
+    $id = Sanitize::string($jsonData->id);
 
-    $userToFollow = User::getFromUid($_db, $uid);
+    $userToFollow = new User($_db, $id);
 
     if($userToFollow === null || !$userToFollow->exists()) {
-        http_response_code(401);
+        http_response_code(400);
         die('User does not exist');
     }
 
-    // TODO:
+    if($user->isFollowing($id)) {
+        http_response_code(400);
+        die('You are already following');
+    }
+
+    if(!Follow::follow($_db, $_SESSION['loggedIn']['id'], $id)) {
+        http_response_code(400);
+        die('Error'); 
+    }
+
+    http_response_code(200);
