@@ -10,8 +10,6 @@
         die('You are not logedin');
     }
 
-    $user = new User($_db, $_SESSION['loggedIn']['id']);
-
     if($_SERVER['REQUEST_METHOD'] != 'POST') {
         http_response_code(400);
         die('Please use the POST request method');
@@ -38,12 +36,12 @@
         die('User does not exist');
     }
 
-    if($user->isFollowing($id)) {
+    if($_loggedInUser->isFollowing($id)) {
         http_response_code(400);
         die('You are already following');
     }
 
-    if(!Follow::follow($_db, $_SESSION['loggedIn']['id'], $id)) {
+    if(!Follow::follow($_db, User::getLoggedInUserId(), $id)) {
         http_response_code(400);
         die('Error'); 
     }

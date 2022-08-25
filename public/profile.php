@@ -4,24 +4,32 @@
     use app\Template;
     use app\Sanitize;
     use app\user\User;
+    use app\user\UserProfileViewProvider;
 
     $profileId = $_url[0] ?? null;
     if(!Sanitize::checkString($profileId)) {
         $profileId = null;
     }
 
-    $user = null;
-    if($profileId !== null) {
-        $user = new User($_db, $profileId);
-    }
+    $user = new User($_db, $profileId);
 
-    if(User::isLoggedIn() && $user === null) {
-        header("Location: /profile/" . $_SESSION['loggedIn']['id']);
+    if(User::isLoggedIn() && !$user->exists()) {
+        header('Location: /profile/' . User::getLoggedInUserId());
         exit();
     }
+
+    $you = false;
+    if(User::isLoggedIn()) {
+        $you = $user->getId() === User::getLoggedInUserId() ? true : false;
+    }
+
+    $tab = $_url[1] ?? null;
+    $page = Sanitize::int($_url[2] ?? 1);
+
+    $upvp = new UserProfileViewProvider($_db, $user, $_loggedInUser);
 ?>
 
-<?= Template::load('header', ['title' => ($user === null ? 'User not found' : $user->getUsername())]);?>
+<?= Template::load('header', ['title' => ($user === null ? 'User not found' : $user->getUsername()), 'loggedInUser' => $_loggedInUser]);?>
 
 <main>
     <div class="container">
@@ -31,27 +39,35 @@
                     <ol class="m-0 breadcrumb text-light">
                         <li class="breadcrumb-item"><a class="link-light" href="/">Home</a></li>
                         <li class="breadcrumb-item"><a class="link-light" href="/profile">Profile</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><?= $user === null ? 'User not found' : $user->getUsername();?></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?= !$user->exists() ? 'User not found' : $user->getUsername();?></li>
                     </ol>
                 </nav>
             </div>
         </div>  
-        <?php if($user !== null): ?>
+        <?php if($user->exists()): ?>
         <div class="row g-3">
-            <div class="col-xl-4 col-12">
+            <div class="col-xl-3 col-12">
                 <div class="card bg-dark">
                     <div class="card-body">
-                        <div>
-                            <?= $user->getUsername();?>
-                        </div>
-                        <?= Template::load('followBtn', ['id' => $user->getId(), 'db' => $_db]);?>
+                        <?= $upvp->getUserCard();?>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-8 col-12">
+            <div class="col-xl-9 col-12">
                 <div class="card bg-dark">
                     <div class="card-body">
-                        content
+                        nav
+                    </div>
+                </div>
+                <div class="card bg-dark mt-3">
+                    <div class="card-body">
+                        <?php if($tab === 'followers'):?>
+                            <?= Template::load('followersList', ['db' => $_db, 'user' => $user, 'page' => $page]);?>
+                        <?php elseif($tab === 'following'):?>
+                            <?= Template::load('followingList', ['db' => $_db, 'user' => $user, 'page' => $page]);?>
+                        <?php else:?>
+                            default
+                        <?php endif;?>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@
         - keywords
         - title
         - pagetype
+        - loggedInUser
     */
 
     use app\user\User;
@@ -32,10 +33,10 @@
         <title><?= $title ?? 'no name'?> | <?= META_PAGE_TITLE;?></title>
 
         <!-- CSS bootstrap --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-        <link rel="stylesheet" href="/assets/css/style.css">
+        <!-- CSS Local --><link rel="stylesheet" href="/assets/css/style.css">
 
-        <link rel="icon" href="/assets/img/favicon.png" type="image/x-icon">
-        <link rel="apple-touch-icon" href="/assets/img/favicon.png">
+        <!-- ICO Local --><link rel="icon" href="/assets/img/favicon.png" type="image/x-icon">
+        <!-- ICO Local --><link rel="apple-touch-icon" href="/assets/img/favicon.png">
     </head>
     <body class="text-white" style="overflow-x: hidden;">
         <?php if(DEVMODE):?>
@@ -66,7 +67,7 @@
                             <span draggable="false" class="mx-2 dropdown">
                                 <div draggable="false" title="Account" class="cursor-pointer link-light" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-user"></i></div>
                                 <ul class="p-0 bg-dark dropdown-menu">
-                                    <li class="user-select-none text-white text-center pt-2"><?= $_SESSION['loggedIn']['username']?></li>
+                                    <li class="user-select-none text-white text-center pt-2"><?= $loggedInUser->getUsername();?></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a draggable="false" class="rounded hover-dark link-light user-select-none dropdown-item" href="/dashboard"><span style="display: inline-block;width: 23px;"><i class="fas fa-tachometer-alt"></i></span> Dashboard</a></li>
                                     <li><a draggable="false" class="rounded hover-dark link-light user-select-none dropdown-item" href="/settings"><span style="display: inline-block;width: 23px;"><i class="fas fa-cog"></i></span> Settings</a></li>

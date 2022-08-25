@@ -10,10 +10,10 @@
         exit();
     }
 
-    $id = $_SESSION['loggedIn']['id'];
+    $id = User::getLoggedInUserId();
 ?>
 
-<?= Template::load('header', ['title' => 'Dashboard']);?>
+<?= Template::load('header', ['title' => 'Dashboard', 'loggedInUser' => $_loggedInUser]);?>
 
 <main>
     <div class="container">

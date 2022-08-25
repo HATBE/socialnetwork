@@ -11,3 +11,5 @@
     define('LOGIN_TIMEOUT_AFTER_FAILED_LOGINS', 300); // INT // in secs
     define('LOGIN_LOG_IP_ADDRESSES', false); // BOOLEAN
     define('LOGIN_LOG_USERAGENT', false); // BOOLEAN
+
+    define('DEFAULT_ITEMS_PER_PAGE', 20); // INT

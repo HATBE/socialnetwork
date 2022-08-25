@@ -10,7 +10,7 @@
     }
 ?>
 
-<?= Template::load('header', ['title' => 'Login', 'noparts' => true]);?>
+<?= Template::load('header', ['title' => 'Login', 'loggedInUser' => $_loggedInUser , 'noparts' => true]);?>
 
 <main style="height: 100vh;" class="text-white d-flex justify-content-center align-items-center">
     <div class="container">

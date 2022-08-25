@@ -42,6 +42,7 @@
             $_SESSION['loggedIn'] = [
                 'id' => $user->getId(),
                 'username' => $user->getUsername(),
+                'time' => time()
             ];
             
             LoginLog::log($this->_db, true, $user->getId());

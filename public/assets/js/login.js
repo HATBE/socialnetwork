@@ -32,7 +32,7 @@ function login(username, password) {
     })
     .done(data => {
         changeMsg(data.responseText, 'text-success');
-        setTimeout(() => {window.location.href = "/index"}, 200);
+        setTimeout(() => {window.location.href = '/index'}, 200);
     })
     .fail(data => {
         inputUsernameEl.disabled = false;
