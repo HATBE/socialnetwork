@@ -4,7 +4,8 @@
     use app\Template;
     use app\Sanitize;
     use app\user\User;
-    use app\user\UserProfileViewProvider;
+    use app\user\UserProfileCardProvider;
+    use app\user\UserListProvider;
 
     $profileId = $_url[0] ?? null;
     if(!Sanitize::checkString($profileId)) {
@@ -26,7 +27,7 @@
     $tab = $_url[1] ?? null;
     $page = Sanitize::int($_url[2] ?? 1);
 
-    $upvp = new UserProfileViewProvider($_db, $user, $_loggedInUser);
+    $upcp = new UserProfileCardProvider($_db, $user, $_loggedInUser);
 ?>
 
 <?= Template::load('header', ['title' => ($user === null ? 'User not found' : $user->getUsername()), 'loggedInUser' => $_loggedInUser]);?>
@@ -49,7 +50,7 @@
             <div class="col-xl-3 col-12">
                 <div class="card bg-dark">
                     <div class="card-body">
-                        <?= $upvp->getUserCard();?>
+                        <?= $upcp->generateUserCard();?>
                     </div>
                 </div>
             </div>
@@ -62,9 +63,9 @@
                 <div class="card bg-dark mt-3">
                     <div class="card-body">
                         <?php if($tab === 'followers'):?>
-                            <?= Template::load('followersList', ['db' => $_db, 'user' => $user, 'page' => $page]);?>
+                            <?= Template::load('userFollowersList', ['db' => $_db, 'user' => $user, 'page' => $page, 'loggedInUser' => $_loggedInUser]);?>
                         <?php elseif($tab === 'following'):?>
-                            <?= Template::load('followingList', ['db' => $_db, 'user' => $user, 'page' => $page]);?>
+                            <?= Template::load('userFollowingList', ['db' => $_db, 'user' => $user, 'page' => $page, 'loggedInUser' => $_loggedInUser]);?>
                         <?php else:?>
                             default
                         <?php endif;?>

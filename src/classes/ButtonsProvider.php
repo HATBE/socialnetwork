@@ -6,7 +6,7 @@
     use app\io\Database;
 
     class ButtonsProvider {
-        public static function followUser(Database $db, string $userid, User $loggedInUser, $large = false) {
+        public static function followUser(Database $db, string $userid, $loggedInUser, $large = false) {
             $html = "";
             if(User::isLoggedIn() && $userid !== $loggedInUser->getId()) {
                 if(Follow::isFollowing($db, $loggedInUser->getId(), $userid)) {

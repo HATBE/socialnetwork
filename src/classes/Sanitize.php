@@ -14,7 +14,7 @@
         }
         
         public static function string($input) {
-            $r = trim(htmlentities($input, ENT_QUOTES));
+            $r = trim(htmlentities($input ?? '', ENT_QUOTES));
             $r = empty($r) ? 'null' : $r;
             
             return $r;

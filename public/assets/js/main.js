@@ -5,8 +5,8 @@ setInterval(() => {
         url: '/_dynamicapi/amiloggedin'
     })
     .done(data => {
-        if(data.responseText == 'false') {
-            window.location.href = '/login';
+        if(data == 'false') {
+            alert('not logged In');
         }
     });
 }, 30_000); 
